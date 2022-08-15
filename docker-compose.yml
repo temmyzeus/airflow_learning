@@ -90,6 +90,11 @@ services:
       interval: 5s
       retries: 5
     # restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '300m'
 
   # redis:
   #   image: redis:latest
@@ -117,6 +122,11 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2gb
 
   airflow-scheduler:
     <<: *airflow-common
@@ -131,6 +141,11 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1gb
 
   airflow-worker:
     <<: *airflow-common
@@ -152,6 +167,11 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2gb
 
   airflow-triggerer:
     <<: *airflow-common
@@ -166,6 +186,11 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1gb
 
   airflow-init:
     <<: *airflow-common
